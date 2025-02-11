@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: dynamicpickerexample
-  title: Dynamic Picker Example
-  description: A template to test GitSync variables
+  title: Repository Picker
+  description: Repository Picker
 spec:
   owner: khushi.sharma@harness.io
   type: service
