@@ -14,42 +14,29 @@ spec:
           title: Github username
           description: Enter your Github username
           type: string
-        custom:
-          title: GitHub Repositories
+        repoName:
+          title: Repository name
           type: string
-          description: Pick one of GitHub Repos
+        topicList: 
+          type: array
+          title: topics
+          items:
+            type: string
+          ui:widget: textarea
+        custom1:
+          title: Repository Topics
+          type: string
+          description: Select or update repository topics
           ui:field: SelectFieldFromApi
           ui:options:
-            path: proxy/github-api/users/{{parameters.gitusername}}/repos
-            valueSelector: full_name
-            contextData: 
-              reponame: name
-              branch: default_branch
-              type: visibility                 
-        repositoryname:
-          title: Repo Name
-          readonly: true
-          description: Repository Name
-          type: string            
-          ui:field: ContextViewer
-          ui:options:
-            getContextData: {{ formContext.reponame }}
-        branchName:
-          title: Default Branch
-          readonly: true
-          description: Default Branch
-          type: string
-          ui:field: ContextViewer
-          ui:options:
-            getContextData: {{ formContext.branch }}          
-        typeName:
-          title: Visibility
-          readonly: true
-          description: Visibility
-          type: string     
-          ui:field: ContextViewer
-          ui:options:
-            getContextData: {{ formContext.type }}          
+            path: proxy/github-api/repos/{{parameters.ownerName}}/{{parameters.repoName}}/topics
+            request:
+              method: PUT
+              headers:
+                Accept: application/vnd.github+json
+                Content-Type: application/json
+            body:
+              names: "{{parameters.topicList}}"         
   steps:
     - id: trigger
       name: Writing the GitSync Variable
